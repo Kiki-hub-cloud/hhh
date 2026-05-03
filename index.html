@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>2b.tattooing | Тату-студия</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            line-height: 1.4;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --accent: #c8a87c;
+            --accent-hover: #e0c09c;
+            --text-light: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --border-light: #2a2a2a;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 48px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 24px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 40px;
+            margin-right: 12px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0a0a0a;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #0a0a0a;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Главная страница - БАННЕР С КАРТИНКОЙ ВВЕРХУ, ТЕКСТ ПО ЦЕНТРУ */
+        .hero {
+            margin-bottom: 60px;
+        }
+
+        .hero-banner {
+            width: 100%;
+            border-radius: 32px;
+            margin-bottom: 48px;
+            overflow: hidden;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-badge {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero-address {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .hero-description {
+            margin-bottom: 32px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .hero-contact {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 20px;
+            color: var(--accent);
+        }
+
+        /* Мастера - белые блоки */
+        .masters-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .masters-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .masters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .master-card {
+            background: #ffffff;
+            color: #0a0a0a;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .master-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+        }
+
+        .master-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: #e0e0e0;
+        }
+
+        .master-info {
+            padding: 20px;
+        }
+
+        .master-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #0a0a0a;
+        }
+
+        .master-info p {
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Галерея */
+        .gallery-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .gallery-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .gallery-sub {
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            background: #1a1a1a;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        /* О нас */
+        .about-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .about-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .about-content {
+            background: #111;
+            padding: 40px;
+            border-radius: 28px;
+            border-left: 4px solid var(--accent);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .about-creators {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        /* Контакты */
+        .contacts-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .contacts-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .contacts-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin: 30px 0 60px;
+        }
+
+        .services-box {
+            flex: 1.2;
+            background: #111;
+            padding: 32px;
+            border-radius: 32px;
+        }
+
+        .services-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .services-box ul {
+            list-style: none;
+        }
+
+        .services-box li {
+            margin-bottom: 14px;
+            padding-left: 26px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .services-box li:before {
+            content: "•";
+            color: var(--accent);
+            font-size: 1.3rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .consult-box {
+            flex: 1;
+            background: #111;
+            padding: 32px;
+            border-radius: 32px;
+        }
+
+        .consult-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .vk-link {
+            background: #1f1f1f;
+            padding: 20px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .vk-link a {
+            color: var(--accent);
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .email-info {
+            margin-top: 25px;
+            color: var(--text-muted);
+        }
+
+        /* Футер */
+        footer {
+            border-top: 1px solid var(--border-light);
+            margin-top: 70px;
+            padding: 40px 0 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+        }
+
+        .footer-contacts {
+            text-align: right;
+        }
+
+        .footer-contacts h4 {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Служебные стили */
+        .page {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+                /* О нас - блок с фото и текстом */
+        .about-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .about-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .about-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            background: #111;
+            border-radius: 32px;
+            padding: 40px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+        }
+
+        .about-text-right {
+            flex: 1.2;
+        }
+
+        .about-creators {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .about-text-right p {
+            font-size: 1rem;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .about-block {
+                flex-direction: column;
+                padding: 24px;
+            }
+            .about-image {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                position: relative;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+                background: #0a0a0a;
+                padding: 20px 0;
+                margin-top: 20px;
+                border-top: 1px solid var(--border-light);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero-badge {
+                font-size: 3rem;
+            }
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .contacts-wrapper {
+                flex-direction: column;
+            }
+            footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .footer-contacts {
+                text-align: center;
+            }
+            .footer-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .masters-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            .about-content {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar">
+        <div class="logo">
+            <!-- КОММЕНТАРИЙ: ЗАМЕНИТЕ НА ВАШ ЛОГОТИП (SVG или PNG) -->
+            <img src="image/logo.jpg" alt="Logo" style="border-radius: 8px;">
+            <h1>2b.<span>tattooing</span></h1>
+        </div>
+        <div class="menu-toggle" id="mobileMenu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a data-page="home" class="nav-link active">Главная</a></li>
+            <li><a data-page="masters" class="nav-link">Мастера</a></li>
+            <li><a data-page="gallery" class="nav-link">Галерея</a></li>
+            <li><a data-page="about" class="nav-link">О нас</a></li>
+            <li><a data-page="contacts" class="nav-link">Контакты</a></li>
+        </ul>
+    </nav>
+</div>
+
+<main id="app" class="container"></main>
+
+<!-- ФУТЕР КАК В ШАБЛОНЕ -->
+<footer class="container">
+    <div class="footer-copyright">Все права защищены. 2026</div>
+    <div class="footer-contacts">
+        <div class="footer-links">
+            <a data-page="home">Главная</a>
+            <a data-page="masters">Мастера</a>
+            <a data-page="gallery">Галерея</a>
+            <a data-page="about">О нас</a>
+            <a data-page="contacts">Контакты</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+
+    // ---------- ГАЛЕРЕЯ ----------
+    const galleryImages = [
+        { id: 1, src: "image/work1.jpg", alt: "tattoo 1" },
+        { id: 2, src: "image/work2.jpg", alt: "tattoo 2" },
+        { id: 3, src: "image/work3.jpg", alt: "tattoo 3" },
+        { id: 4, src: "image/work4.jpg", alt: "tattoo 4" },
+        { id: 5, src: "image/work5.jpg", alt: "tattoo 5" },
+        { id: 6, src: "image/work6.jpg", alt: "tattoo 6" },
+         { id: 7, src: "image/work7.jpg", alt: "tattoo 7" },
+          { id: 8, src: "image/work9.jpg", alt: "tattoo 8" },
+    ];
+
+    // ---------- МАСТЕРА:  ----------
+    const mastersData = [
+        { name: "Галина", style: "Реализм, графика", description: "Опыт 6 лет. Создает уникальные эскизы, участник конвенций.", img: "image/галина.jpg" },
+        { name: "Арина", style: "Олдскул, орнаментал", description: "Опыт 5 лет. Работает в разных техниках, призер фестивалей.", img: "image/арина.jpg" },
+        { name: "Алексей", style: "Черно-белое, биомеханика", description: "Международный мастер. Постоянно совершенствует стиль.", img: "image/алексей.jpg" },
+        { name: "Ильнур", style: "Ботаника, акварель", description: "Топ-мастер с мягкой подачей. Любит сложные проекты.", img: "image/ильнур.jpg" }
+    ];
+
+    // ---------- ГЛАВНАЯ СТРАНИЦА ----------
+    function renderHome() {
+        return `
+            <div class="page">
+                <div class="hero">
+                    <div class="hero-banner">
+                        <img src="image/slide.png" alt="Баннер студии">
+                    </div>
+                    <div class="hero-content">
+                        <div class="hero-title">2b.tattooing</div>
+                        <div class="hero-address"><i class="fas fa-map-marker-alt"></i> Заки Валиди, 5 • тату-магазин</div>
+                        <div class="hero-description">
+                            ТАТУ-СТУДИЯ 2B.TATTOOING - это место олицетворяющее слово «стиль», к нам приходят за особой атмосферой и ощущением индивидуальности.<br>
+                            наше пространство - совершенно новый уровень креативно-эстетической среды, где ты окунешься с головой в культуру татуировки и пирсинга.
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" data-page="about">Подробнее о нас</a>
+                            <a class="btn btn-outline" data-page="contacts">Контакты</a>
+                        </div>
+                        <div class="hero-contact">
+                            <i class="fas fa-phone-alt"></i> +79191434081
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // ---------- СТРАНИЦА МАСТЕРОВ (БЕЛЫЕ БЛОКИ) ----------
+    function renderMasters() {
+        let html = `<div class="page"><div class="masters-header"><h2>Мастера</h2></div><div class="masters-grid">`;
+        mastersData.forEach(m => {
+            html += `
+                <div class="master-card">
+                    <!-- КОММЕНТАРИЙ: ЗАМЕНИТЕ ФОТО МАСТЕРОВ -->
+                    <img class="master-img" src="${m.img}" alt="${m.name}">
+                    <div class="master-info">
+                        <h3>${m.name}</h3>
+                        <p><strong>${m.style}</strong></p>
+                        <p>${m.description}</p>
+                        <p style="margin-top: 12px;">✨ Создаю татуировки, которые подчеркивают индивидуальность. Жду на консультацию!</p>
+                    </div>
+                </div>
+            `;
+        });
+        html += `</div></div>`;
+        return html;
+    }
+
+    // ---------- СТРАНИЦА ГАЛЕРЕЯ ----------
+    function renderGallery() {
+        let html = `<div class="page"><div class="gallery-header"><h2>Галерея</h2><div class="gallery-sub">@ebashlike</div></div><div class="gallery-grid">`;
+        galleryImages.forEach(img => {
+            html += `
+                <div class="gallery-item">
+                    <!-- КОММЕНТАРИЙ: ЗАМЕНИТЕ НА РЕАЛЬНЫЕ ФОТО РАБОТ -->
+                    <img src="${img.src}" alt="${img.alt}" loading="lazy">
+                </div>
+            `;
+        });
+        html += `</div><div style="text-align:center; margin: 20px 0 40px;"><i class="fab fa-instagram"></i> Больше работ в Instagram: @ebashlike</div></div>`;
+        return html;
+    }
+
+        // ---------- СТРАНИЦА О НАС  ----------
+    function renderAbout() {
+        return `
+            <div class="page">
+                <div class="about-header">
+                    <h2>О нас</h2>
+                </div>
+                
+                <div class="about-block">
+                    <div class="about-image">
+                        <img src="image/создатели.jpg" alt="Настя и Арина">
+                    </div>
+                    <div class="about-text-right">
+                        <p class="about-creators">привет! мы Настя и Арина - создатели 2b.tattooing, мастера с опытом более 5 лет</p>
+                        <p>в 2023 году мы создали самое большое и современное пространство в Уфе, в котором есть все необходимое для создания твоей идеальной татуировки!</p>
+                        <p>в первую очередь за это отвечают первоклассные мастера, постоянно совершенствующие свой стиль. Они являются востребованными мастерами не только в нашем городе, но и в главных столицах нашей страны, а так же в других странах.<br>
+                        наши татуеры участвуют в тату конвенциях и фестивалях, занимая в них призовые места.</p>
+                        <p> наша миссия - изменить ваше представление о культуре татуировки и показать насколько комфортным может быть сеанс.
+2b.tattooing - это место, где ты почувствуешь свою индивидуальность, выразив ее через татуировку, которая будет притягивать взгляды и радовать тебя каждый день.
+
+за 2023 год более 1000 человек стали счастливыми обладателями качественных работ, потому что сделали правильный выбор, обратившись в нашу студию. <p>
+
+присылай свою идею в сообщения группы:<p>
+vk.me/2b.tattooing
+и получи бесплатную консультацию! </p>
+                        <div style="margin-top: 30px;">
+                            <a class="btn btn-primary" data-page="contacts">Связаться с нами</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // ---------- СТРАНИЦА КОНТАКТЫ ----------
+    function renderContacts() {
+        return `
+            <div class="page">
+                <div class="contacts-header"><h2>Контакты</h2></div>
+                <div class="contacts-wrapper">
+                    <div class="services-box">
+                        <h3>что можно сделать в нашей студии?</h3>
+                        <ul>
+                            <li>создать индивидуальный эскиз и нанести на тело</li>
+                            <li>сделать коррекцию уже имеющейся татуировки</li>
+                            <li>cover up – полное/частичное перекрытие старой тату</li>
+                            <li>любые виды пирсинга</li>
+                            <li>посетить лекции, мастер-классы и различные мероприятия (следи за анонсами)</li>
+                            <li>купить заживляющие средства и другие расходники в нашем тату-шопе</li>
+                            <li>приобрести подарочный сертификат на любую услугу</li>
+                        </ul>
+                    </div>
+                    <div class="consult-box">
+                        <h3>присылай свою идею в сообщения группы:</h3>
+                        <div class="vk-link">
+                            <a href="https://vk.me/2b.tattooing" target="_blank">vk.me/2b.tattooing</a>
+                            <p style="margin-top: 10px; color: #b0b0b0;">и получи бесплатную консультацию!</p>
+                        </div>
+                        <div class="email-info">
+                            <p><i class="fas fa-envelope"></i> info@2b.tattooing.com</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Заки Валиди, 5, Уфа</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Роутинг
+    const pages = {
+        home: renderHome,
+        masters: renderMasters,
+        gallery: renderGallery,
+        about: renderAbout,
+        contacts: renderContacts
+    };
+
+    let currentPage = 'home';
+
+    function navigateTo(page) {
+        if (pages[page]) {
+            currentPage = page;
+            document.getElementById('app').innerHTML = pages[page]();
+            // Обновляем активный класс в навигации
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('data-page') === page) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            // Переназначаем обработчики для динамических кнопок
+            attachDynamicClicks();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function attachDynamicClicks() {
+        document.querySelectorAll('[data-page]').forEach(el => {
+            el.removeEventListener('click', pageHandler);
+            el.addEventListener('click', pageHandler);
+        });
+    }
+
+    function pageHandler(e) {
+        e.preventDefault();
+        const page = this.getAttribute('data-page');
+        if (page && pages[page]) {
+            navigateTo(page);
+        }
+    }
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', () => {
+        navigateTo('home');
+        // Клики по основному меню
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                if (page) navigateTo(page);
+            });
+        });
+        // Клики по футеру
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                if (page) navigateTo(page);
+            });
+        });
+        // Мобильное меню
+        const toggleBtn = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        toggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    });
+</script>
+</body>
+</html>
